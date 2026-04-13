@@ -193,7 +193,7 @@
     this.defineSubjectAndSenderElements = function() {
       if ($ctrl && $ctrl.message && !$ctrl.message.loading) {
         // Subject
-        $ctrl.subjectElement.innerHTML = $ctrl.message.getHighlightSubject();
+        $ctrl.subjectElement.textContent = $ctrl.message.getHighlightSubject();
 
         // Sender or recipient when in Sent or Draft mailbox
         if ($ctrl.MailboxService.selectedFolder.isSentFolder || $ctrl.MailboxService.selectedFolder.isDraftsFolder)
