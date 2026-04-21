@@ -1871,6 +1871,7 @@ static NSArray *childRecordFields = nil;
 
   [adaptorCtx beginTransaction];
   userRoles = [roles objectEnumerator];
+  objectPath = [NSString stringWithFormat: @"/%@", objectPath];
   while ((currentRole = [userRoles nextObject]))
     {
       int i = 0;
@@ -1878,7 +1879,6 @@ static NSArray *childRecordFields = nil;
       adaptor = [adaptorCtx adaptor];
       attribute = [EOAttribute new];
       [attribute autorelease];
-      objectPath = [NSString stringWithFormat: @"/%@", objectPath];
       if ([GCSFolderManager singleStoreMode])
       {
         sqlstr = [NSMutableString stringWithFormat: @"INSERT INTO %@"
@@ -1928,7 +1928,6 @@ static NSArray *childRecordFields = nil;
         }
         [sqlstr appendString:@")"];
       }
-        
       [channel evaluateExpressionX: sqlstr];
     }
 
