@@ -938,7 +938,11 @@ static NSString *_sanitizeHtmlForDisplay(NSString *content)
 
 - (NSString *) cssContent
 {
-  NSString *cssContent, *css;
+  NSString *cssContent, *css, *newResult;
+  NSRegularExpression *regex;
+  NSError *error;
+
+  error = nil;
 
   if (!handler)
     [self _parseContent];
@@ -950,6 +954,16 @@ static NSString *_sanitizeHtmlForDisplay(NSString *content)
 		  [handler css]];
   else
     cssContent = @"";
+  
+  regex = [NSRegularExpression regularExpressionWithPattern:@"margin-left\\s*:\\s*-[^;]+(\\s*!important)?"
+                                  options: NSRegularExpressionCaseInsensitive error:&error];
+  newResult = [regex stringByReplacingMatchesInString:cssContent options:0 range:NSMakeRange(0, [cssContent length]) withTemplate:@"margin-left: 0 !important"];
+  cssContent = [NSString stringWithString: newResult];
+
+  regex = [NSRegularExpression regularExpressionWithPattern:@"margin-right\\s*:\\s*-[^;]+(\\s*!important)?"
+                                  options: NSRegularExpressionCaseInsensitive error:&error];
+  newResult = [regex stringByReplacingMatchesInString:cssContent options:0 range:NSMakeRange(0, [cssContent length]) withTemplate:@"margin-right: 0 !important"];
+  cssContent = [NSString stringWithString: newResult];
 
   return cssContent;
 }
@@ -1093,7 +1107,11 @@ static NSString *_sanitizeHtmlForDisplay(NSString *content)
 
 - (NSString *) cssContent
 {
-  NSString *cssContent, *css;
+  NSString *cssContent, *css, *newResult;
+  NSRegularExpression *regex;
+  NSError *error;
+
+  error = nil;
 
   if (!handler)
     [self _parseContent];
@@ -1105,6 +1123,16 @@ static NSString *_sanitizeHtmlForDisplay(NSString *content)
 		  [handler css]];
   else
     cssContent = @"";
+  
+  regex = [NSRegularExpression regularExpressionWithPattern:@"margin-(?:left|right)\\s*:\\s*-[^;]+(\\s*!important)?"
+                                  options: NSRegularExpressionCaseInsensitive error:&error];
+  newResult = [regex stringByReplacingMatchesInString:cssContent options:0 range:NSMakeRange(0, [cssContent length]) withTemplate:@"margin-left: 0 !important"];
+  cssContent = [NSString stringWithString: newResult];
+
+  regex = [NSRegularExpression regularExpressionWithPattern:@"margin-right\\s*:\\s*-[^;]+(\\s*!important)?"
+                                  options: NSRegularExpressionCaseInsensitive error:&error];
+  newResult = [regex stringByReplacingMatchesInString:cssContent options:0 range:NSMakeRange(0, [cssContent length]) withTemplate:@"margin-right: 0 !important"];
+  cssContent = [NSString stringWithString: newResult];
 
   return cssContent;
 }
