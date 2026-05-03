@@ -525,7 +525,7 @@
         && data 
         && -1 === data.indexOf("data-markjs")) {
       var dom = document.createElement("DIV");
-      dom.innerHTML = encodeEntities ? data.encodeEntities() : data;
+      dom.textContent = encodeEntities ? data.encodeEntities() : data;
       var markInstance = new Mark(dom);
       markInstance.mark(this.$mailbox.getHighlightWords());
       data = dom.innerHTML;
@@ -536,6 +536,7 @@
 
     return data;
   };
+
 
   /**
    * @function getHighlightSubject
