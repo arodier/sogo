@@ -44,6 +44,7 @@
 #import <SOGo/SOGoUserFolder.h>
 #import <SOGo/SOGoUserDefaults.h>
 #import <SOGo/SOGoUserManager.h>
+#import <SOGo/NSString+Utilities.h>
 #import <Appointments/iCalEntityObject+SOGo.h>
 #import <Appointments/SOGoAppointmentFolder.h>
 #import <Appointments/SOGoAppointmentFolders.h>
@@ -81,8 +82,7 @@
 {
   if (!inCalendar)
     {
-      inCalendar
-	= [iCalCalendar parseSingleFromSource: [self flatContentAsString]];
+      inCalendar = [iCalCalendar parseSingleFromSource: [self flatContentAsString]];
       [inCalendar retain];
     }
 
@@ -583,7 +583,12 @@
                                     [[person partStatWithDefault] lowercaseString], @"partstat", nil]];
     }
 
-  [d setObject: a  forKey: @"participants"]; 
+  [d setObject: a  forKey: @"participants"];
+
+  //Sanitise the html content
+  if([d objectForKey:@"content"]){
+    [d setObject: [[d objectForKey:@"content"] stringWithoutHTMLInjection: NO] forKey: @"content"];
+  }
 
   return d;
 }

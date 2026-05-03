@@ -1031,16 +1031,26 @@ static int cssEscapingCount;
       newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"</for*"];
       result = [NSString stringWithString: newResult];
 
-      // Remove onload
-      regex = [NSRegularExpression regularExpressionWithPattern:@"onload=" 
-                                  options: NSRegularExpressionCaseInsensitive error:&error];
-      newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onl***="];
-      result = [NSString stringWithString: newResult];
+      // // Remove onload
+      // regex = [NSRegularExpression regularExpressionWithPattern:@"onload=" 
+      //                             options: NSRegularExpressionCaseInsensitive error:&error];
+      // newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onl***="];
+      // result = [NSString stringWithString: newResult];
 
-      // Remove onmouseover
-      regex = [NSRegularExpression regularExpressionWithPattern:@"onmouseover=" 
-                                  options: NSRegularExpressionCaseInsensitive error:&error];
-      newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onmouseo***="];
+      // // Remove onmouseover
+      // regex = [NSRegularExpression regularExpressionWithPattern:@"onmouseover=" 
+      //                             options: NSRegularExpressionCaseInsensitive error:&error];
+      // newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onmouseo***="];
+      // result = [NSString stringWithString: newResult];
+
+      // regex = [NSRegularExpression regularExpressionWithPattern:@"onrepeat=" 
+      //                             options: NSRegularExpressionCaseInsensitive error:&error];
+      // newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onrep***="];
+      // result = [NSString stringWithString: newResult];
+
+      regex = [NSRegularExpression regularExpressionWithPattern: @"(on\\w+)\\s*=\\s*([\"'][^\"']*[\"']|[^\\s>]+)"
+                                              options: NSRegularExpressionCaseInsensitive error: &error];
+      newResult = [regex stringByReplacingMatchesInString: result options: 0 range: NSMakeRange(0, [result length]) withTemplate: @"on***=\"\""];
       result = [NSString stringWithString: newResult];
 
       // Remove @import css (in style tags)
