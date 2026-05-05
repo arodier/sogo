@@ -823,13 +823,16 @@ size_t curl_body_function(void *ptr, size_t size, size_t nmemb, void *buffer)
 - (NSMutableDictionary *) fetchUserInfo
 {
   NSString *location, *auth, *content;
+  SOGoSystemDefaults *sd;
   SimpleOpenIdResponse *response;
   // WOResponse *response;
   NSUInteger status;
   NSMutableDictionary *result;
   NSDictionary *profile, *headers;
   NSURL *url;
-  NSString *email;
+  NSString *email, *type, *user_domain;
+  NSRange r;
+  NSArray *domainsAllowed;
 
   result = [NSMutableDictionary dictionary];
   [result setObject: @"ok" forKey: @"error"];
@@ -871,6 +874,36 @@ size_t curl_body_function(void *ptr, size_t size, size_t nmemb, void *buffer)
                         "email":"myuser@user.com"}*/
           if (email = [profile objectForKey: self->openIdEmailParam])
           {
+            //Check the mail domain is ok
+            
+            r = [email rangeOfString: @"@"];
+            if (r.location != NSNotFound)
+              user_domain = [email substringFromIndex: r.location+1];
+            else
+            {
+              [self logWithFormat: @"Error mail from userInfo not a mail %@", email];
+              [result setObject: @"mail-error" forKey: @"error"];
+              return result;
+            }
+
+            sd = [SOGoSystemDefaults sharedSystemDefaults];
+            if(self->forDomain != nil && [sd doesLoginTypeByDomain])
+            {
+              type = [sd getLoginTypeForDomain: self->forDomain];
+              if(type != nil && [type isEqualToString: @"openid"] && ![user_domain isEqualToString: self->forDomain])
+              {
+                [self errorWithFormat: @"Openid userinfo email is not the right domain. Excpected: %@, Got %@", self->forDomain, user_domain];
+                [result setObject: @"mail-error" forKey: @"error"];
+                return result;
+              }
+            }
+            else if(((domainsAllowed = [sd domainsAllowed]) && [domainsAllowed count] > 0) && ![domainsAllowed containsObject: user_domain])
+            {
+              [self errorWithFormat: @"Openid userinfo email domain is not allowed. Got %@", user_domain];
+              [result setObject: @"mail-error" forKey: @"error"];
+              return result;
+            }
+
             if(self->userTokenInterval > 0)
               [self _saveUserToCache: email];
             [result setObject: email forKey: @"login"];
@@ -949,7 +982,7 @@ size_t curl_body_function(void *ptr, size_t size, size_t nmemb, void *buffer)
       }
     }
 
-    //The acces token hasn't work, delete the session in database if needed
+    //The access token hasn't work, delete the session in database if needed
     if(self->accessToken)
     {
       [[[GCSFolderManager defaultFolderManager] openIdFolder] deleteOpenIdSessionFor: self->accessToken];
@@ -961,6 +994,12 @@ size_t curl_body_function(void *ptr, size_t size, size_t nmemb, void *buffer)
   {
     //remove old session
     [[[GCSFolderManager defaultFolderManager] openIdFolder] deleteOpenIdSessionFor: self->accessToken];
+  }
+  if([[resultUserInfo objectForKey: @"error"] isEqualToString: @"mail-error"])
+  {
+    //Means there is a problem with the mail get from userInfo (logs wil explained)
+    //To avoid infinite loop -> openid -> redirect sogo -> useinfo fail -> rediretc to sogo index -> redirect to openid...
+    return nil;
   }
 
   return @"anonymous";

@@ -685,8 +685,22 @@ static const NSString *kJwtKey = @"jwt";
         code = value;
       [openIdSession fetchToken: code redirect: redirectLocation];
       login = [openIdSession login: @""];
+      if(!login)
+      {
+        //login is nil only if there's a problem with the userInfo mail parameters
+        response = [self responseWithStatus: 500 andString: @"Openid wrong email, check the log"];
+        return response;
+      }
       if ([login length])
       {
+        //Check if the user exist in SOGo user source (ldap or sql)
+        loggedInUser = [SOGoUser userWithLogin: login];
+        if(!loggedInUser)
+        { 
+          [self logWithFormat: @"Mail returned by openid does not exist in user source: %@", login];
+          response = [self responseWithStatus: 500 andString: @"Openid wrong email, check the log"];
+          return response;
+        }
         auth = [[WOApplication application] authenticatorInContext: context];
         openIdCookie = [auth cookieWithUsername: login
                                   andPassword: [openIdSession getToken]
