@@ -197,9 +197,9 @@
 
         // Sender or recipient when in Sent or Draft mailbox
         if ($ctrl.MailboxService.selectedFolder.isSentFolder || $ctrl.MailboxService.selectedFolder.isDraftsFolder)
-          $ctrl.senderElement.innerHTML = $ctrl.message.highlightSearchTerms($ctrl.message.$shortAddress('to', Preferences.defaults.SOGoMailDisplayFullEmail), true);
+          $ctrl.senderElement.innerHTML = $ctrl.message.highlightSearchTerms($ctrl.message.$shortAddress('to', Preferences.defaults.SOGoMailDisplayFullEmail), true, false);
         else
-          $ctrl.senderElement.innerHTML = $ctrl.message.highlightSearchTerms($ctrl.message.$shortAddress('from', Preferences.defaults.SOGoMailDisplayFullEmail), true);
+          $ctrl.senderElement.innerHTML = $ctrl.message.highlightSearchTerms($ctrl.message.$shortAddress('from', Preferences.defaults.SOGoMailDisplayFullEmail), true, false);
       }
     };
 

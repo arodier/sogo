@@ -497,7 +497,7 @@
           && ("UIxMailPartHTMLViewer" == parts[i].type
           || "UIxMailPartTextViewer" == parts[i].type)) {
           // Content
-          parts[i].content = this.highlightSearchTerms(parts[i].content, false);
+          parts[i].content = this.highlightSearchTerms(parts[i].content, false, true);
           // Title
           this.subject = this.getHighlightSubject();
           // From
@@ -518,14 +518,20 @@
    * @desc Returns the data with highlight search
    * @returns the data with highlighted search terms
    */
-  Message.prototype.highlightSearchTerms = function (data, encodeEntities) {
+  Message.prototype.highlightSearchTerms = function (data, encodeEntities, isHtml) {
     var i = 0;
     if (this.$mailbox.getHighlightWords() 
         && this.$mailbox.getHighlightWords().length > 0 
         && data 
         && -1 === data.indexOf("data-markjs")) {
       var dom = document.createElement("DIV");
-      dom.textContent = encodeEntities ? data.encodeEntities() : data;
+      if(isHtml){
+        dom.innerHTML = encodeEntities ? data.encodeEntities() : data;
+      }
+      else{
+        dom.textContent = encodeEntities ? data.encodeEntities() : data;
+      }
+
       var markInstance = new Mark(dom);
       markInstance.mark(this.$mailbox.getHighlightWords());
       data = dom.innerHTML;
@@ -545,7 +551,7 @@
    * @returns the subject with highlighted search terms
    */
   Message.prototype.getHighlightSubject = function () {   
-    return this.highlightSearchTerms(this.subject, false);
+    return this.highlightSearchTerms(this.subject, false, false);
   };
 
   /**
@@ -557,8 +563,8 @@
   Message.prototype.getHighlightFrom = function () {
     var i = 0;
     for (i = 0; i < this.from.length; i++) {
-      this.from[i].fullHighlighted = this.highlightSearchTerms(this.from[i].full, false);
-      this.from[i].nameHighlighted = this.highlightSearchTerms(this.from[i].name, false);
+      this.from[i].fullHighlighted = this.highlightSearchTerms(this.from[i].full, false, false);
+      this.from[i].nameHighlighted = this.highlightSearchTerms(this.from[i].name, false, false);
     }
 
     return this.from;
