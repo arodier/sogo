@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.12.8](https://github.com/Alinto/sogo/compare/SOGo-5.12.7...SOGo-5.12.8) (2026-05-11)
+
+
+### Bug Fixes
+
+* **acl:** fix folder path ([d902756](https://github.com/Alinto/sogo/commit/d902756aaf955a9ade6061806bb372e15b673197))
+* **acl:** only add existing uid ([f9b7105](https://github.com/Alinto/sogo/commit/f9b71059f4f382d7b337d16ce1257443ade43d02))
+* **css:** do not escape css if missing ([d723261](https://github.com/Alinto/sogo/commit/d7232618e6d6518acd148d3fafc5476d6a83aae1))
+* **mail:** correctly render mail when searching ([0cb21f8](https://github.com/Alinto/sogo/commit/0cb21f8fb95d3fcb5da5112e3dcf082fa7cb1fe3))
+* **mail:** remove negative margin from mail ([6119d6c](https://github.com/Alinto/sogo/commit/6119d6cf232cdf322b6c9d6d8beec7c8f47b8ad2))
+* **mail:** render properly the subject v2 ([29d0bbc](https://github.com/Alinto/sogo/commit/29d0bbc9eb96c2b4a0ada4d93eac79a66c789b22))
+* **mail:** sanitise mail with ics (invitation to event) ([67ce01e](https://github.com/Alinto/sogo/commit/67ce01ec2a1a7854d8e9f615dd65afb949043e86))
+* **openid:** check the userinfo mail + avoid infinite loop ([93b82a0](https://github.com/Alinto/sogo/commit/93b82a0f60ce5d8b0938e3f03d86baee8d075162))
+* **UI:** render properly the subject ([b7641be](https://github.com/Alinto/sogo/commit/b7641be5c80c0c02dc1b4742ce92e4de9a948b72))
+
+
+### Localization
+
+* **pl:** Update Polish translations ([4e5c251](https://github.com/Alinto/sogo/commit/4e5c2516d43a3d80fad75f0a08c114ff3cb3eb03))
+
 ### [5.12.7](https://github.com/Alinto/sogo/compare/SOGo-5.12.6...SOGo-5.12.7) (2026-03-30)
 
 
