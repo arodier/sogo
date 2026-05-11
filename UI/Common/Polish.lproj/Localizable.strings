@@ -176,7 +176,7 @@
 "Show or hide this help" = "Pokaż lub ukryj tę podpowiedź";
 
 /* Space key */
-"key_space" = "space";
+"key_space" = "spacja";
 
 /* Delete key */
 "key_delete" = "delete";
