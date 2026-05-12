@@ -527,13 +527,12 @@
       var dom = document.createElement("DIV");
       if(isHtml){
         dom.innerHTML = encodeEntities ? data.encodeEntities() : data;
+        var markInstance = new Mark(dom);
+        markInstance.mark(this.$mailbox.getHighlightWords());
       }
       else{
         dom.textContent = encodeEntities ? data.encodeEntities() : data;
       }
-
-      var markInstance = new Mark(dom);
-      markInstance.mark(this.$mailbox.getHighlightWords());
       data = dom.innerHTML;
       dom.remove();
     } else if (encodeEntities) {
