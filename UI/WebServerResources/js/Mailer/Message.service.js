@@ -531,7 +531,7 @@
         markInstance.mark(this.$mailbox.getHighlightWords());
       }
       else{
-        dom.textContent = encodeEntities ? data.encodeEntities() : data;
+        dom.textContent = data;
       }
       data = dom.innerHTML;
       dom.remove();
