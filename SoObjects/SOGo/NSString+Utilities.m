@@ -1031,28 +1031,30 @@ static int cssEscapingCount;
       newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"</for*"];
       result = [NSString stringWithString: newResult];
 
-      // // Remove onload
-      // regex = [NSRegularExpression regularExpressionWithPattern:@"onload=" 
-      //                             options: NSRegularExpressionCaseInsensitive error:&error];
-      // newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onl***="];
-      // result = [NSString stringWithString: newResult];
-
-      // // Remove onmouseover
-      // regex = [NSRegularExpression regularExpressionWithPattern:@"onmouseover=" 
-      //                             options: NSRegularExpressionCaseInsensitive error:&error];
-      // newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onmouseo***="];
-      // result = [NSString stringWithString: newResult];
-
-      // regex = [NSRegularExpression regularExpressionWithPattern:@"onrepeat=" 
-      //                             options: NSRegularExpressionCaseInsensitive error:&error];
-      // newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onrep***="];
-      // result = [NSString stringWithString: newResult];
-
-      regex = [NSRegularExpression regularExpressionWithPattern: @"(on\\w+)\\s*=\\s*([\"'][^\"']*[\"']|[^\\s>]+)"
-                                              options: NSRegularExpressionCaseInsensitive error: &error];
-      newResult = [regex stringByReplacingMatchesInString: result options: 0 range: NSMakeRange(0, [result length]) withTemplate: @"on***=\"\""];
+      // Remove onload
+      regex = [NSRegularExpression regularExpressionWithPattern:@"onload=" 
+                                  options: NSRegularExpressionCaseInsensitive error:&error];
+      newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onl***="];
       result = [NSString stringWithString: newResult];
 
+      // Remove onmouseover
+      regex = [NSRegularExpression regularExpressionWithPattern:@"onmouseover=" 
+                                  options: NSRegularExpressionCaseInsensitive error:&error];
+      newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onmouseo***="];
+      result = [NSString stringWithString: newResult];
+
+      // Remove onrepeat
+      regex = [NSRegularExpression regularExpressionWithPattern:@"onrepeat=" 
+                                  options: NSRegularExpressionCaseInsensitive error:&error];
+      newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onrep***="];
+      result = [NSString stringWithString: newResult];
+
+      // Remove onerror
+      regex = [NSRegularExpression regularExpressionWithPattern:@"onerror=" 
+                                  options: NSRegularExpressionCaseInsensitive error:&error];
+      newResult = [regex stringByReplacingMatchesInString:result options:0 range:NSMakeRange(0, [result length]) withTemplate:@"onerr***="];
+      result = [NSString stringWithString: newResult];
+      
       // Remove @import css (in style tags)
       regex = [NSRegularExpression regularExpressionWithPattern:@"(<[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*s[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*t[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*y[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*l[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*e.*)([\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*@[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*i[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*m[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*p[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*o[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*r[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*t)(.*<[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*\\/[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*s[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*t[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*y[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*l[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*e[\\s\\u200B&#x09;&#x0A;&#x0D;\\\\0]*>)" 
                                   options: NSRegularExpressionCaseInsensitive error:&error];
