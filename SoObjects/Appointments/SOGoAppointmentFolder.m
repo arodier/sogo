@@ -3521,6 +3521,15 @@ firstInstanceCalendarDateRange: (NGCalendarDateRange *) fir
           timezone = nil;
           element = [components objectAtIndex: i];
 
+          //remove all attenddees, change organisator and change uid
+          //If we do not clean up, any user could impersonate someone by importing a malicious .ics
+          //and send notificaitons to attenddes or remove their event (as SOGo think the user has the rights to do so)
+          [element removeAllAttendees];
+          [element setOrganizer: nil];
+          [element setUid: [self globallyUniqueObjectId]];
+
+
+
           if ([element isKindOfClass: iCalEventK])
             {
               event = (iCalEvent *)element;
