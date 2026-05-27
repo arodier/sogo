@@ -152,7 +152,7 @@
 "Contacts Names" = "Nom dels Contactes";
 "Duplicate name" = "Nom duplicat";
 "Calendar categories must have unique names." = "Les categories de calendari han de tenir noms únics.";
-"Disable e-mail notifications on CalDAV" = "Disable e-mail notifications on CalDAV";
+"Disable e-mail notifications on CalDAV" = "Desactiva les notificacions per correu electrònic a CalDAV";
 
 /* Default Calendar */
 "Default calendar" = "Calendari per defecte";
@@ -207,7 +207,7 @@
 "Insert signature on forward" = "Insert signature on forward";
 "Show recipients or sender full email in mailboxes" = "Show recipients or sender full email in mailboxes";
 "Hide attachements for inline images" = "Hide attachments for inline images";
-"Show attachments above the message" = "Show attachments above the message";
+"Show attachments above the message" = "Mostra els adjunts a sobre del missatge";
 
 /* Base font size for messages composed in HTML */
 "Default font size" = "Mida per defecte del tipus de lletra";
