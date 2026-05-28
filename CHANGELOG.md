@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.12.9](https://github.com/Alinto/sogo/compare/SOGo-5.12.8...SOGo-5.12.9) (2026-05-27)
+
+
+### Bug Fixes
+
+* **mail:** do not encode non-html element ([6e59011](https://github.com/Alinto/sogo/commit/6e590115fbce073847369495997228fba2fc3ce8))
+* **mail:** render the subject without html when searching ([be440ba](https://github.com/Alinto/sogo/commit/be440baa23fd8b6ad5d8c947f60f9105ad717214))
+* **pref:** prevent onevent cleaning to remove legitimate words ([c45233c](https://github.com/Alinto/sogo/commit/c45233c11e250a22fa1e1f3e47fee2d6e232045b))
+
+
+### Localization
+
+* **ca:** Update Catalan translations ([fd427f9](https://github.com/Alinto/sogo/commit/fd427f91967b99ca0d8eb42c4e5432f9ae4b49cf))
+* **es_ES:** Update SpanishSpain translations ([d823cad](https://github.com/Alinto/sogo/commit/d823cadda084e735c6dbeb2694f583bdf9fb7f9b))
+
 ### [5.12.8](https://github.com/Alinto/sogo/compare/SOGo-5.12.7...SOGo-5.12.8) (2026-05-11)
 
 
