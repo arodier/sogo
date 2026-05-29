@@ -584,7 +584,6 @@
           [self _updateForeignSubscriptionsFromUser: oldUserID toUser: newUserID];
           [self _updateLocalACLsFromUser: oldUserID toUser: newUserID];
           [self _updateForeignACLsFromUser: oldUserID toUser: newUserID];
-          [self _updateOldUserIDDefaultAndSettings: oldUserID toUser: newUserID];
           rc = YES;
         }
 
