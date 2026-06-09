@@ -148,14 +148,26 @@
  */
 - (WOResponse *) reloadAction
 {
-  NSDictionary *results;
+  NSMutableDictionary *results;
+  NSString *error;
   unsigned int httpCode;
 
   httpCode = 200;
   results = [[self clientObject] loadWebCalendar];
 
+  
   if ([results objectForKey: @"status"])
-    httpCode = [[results objectForKey: @"status"] intValue];
+  {
+    if ([results objectForKey: @"error"])
+    {
+      error = [results objectForKey: @"error"];
+      if ([error isEqualToString: @"need-auth"])
+        httpCode = 401;
+      if ([error isEqualToString: @"invalid-calendar-content"] || [error isEqualToString: @"http-error"])
+        httpCode = 500;
+    }
+    [results removeObjectForKey:@"status"];
+  }
 
   return [self responseWithStatus: httpCode andJSONRepresentation: results];
 }

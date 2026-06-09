@@ -184,6 +184,10 @@ size_t curl_body_function(void *ptr, size_t size, size_t nmemb, void *buffer)
                   else
                     [result setObject: @"invalid-calendar-content" forKey: @"error"];
                 }
+              else if (status == 401)
+              {
+                [result setObject: @"need-auth" forKey: @"error"];
+              }
               else
                 [result setObject: @"http-error" forKey: @"error"];
             }
